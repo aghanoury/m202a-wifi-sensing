@@ -30,4 +30,3 @@ Indoor Crowd Counting via Few-Shot Learning." IEEE Internet of Things Journal
 
 [5] Ma, Yongsen, et al. "SignFi: Sign language recognition using WiFi." ACM
 IMWUT (2018).
-
