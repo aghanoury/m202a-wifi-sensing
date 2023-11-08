@@ -1,4 +1,4 @@
-# Optimizing WiFi Sensing for Human Activity Recognition with Reduced Sampling Rates
+# Abstract
 
 TODO: Provide a brief overview of the project objhectives, approach, and results.
 

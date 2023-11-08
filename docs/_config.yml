@@ -6,5 +6,8 @@ show_downloads: true
 # google_analytics:[Your Google Analytics tracking ID]
 
 # Name of website
-title: Optimizing WiFi Sensing for Human Activity Recognition with Reduced Sampling Rates
+title:
+  [
+    Optimizing WiFi Sensing for Human Activity Recognition with Reduced Sampling Rates,
+  ]
 description: Project for UCLA ECEM202A/CSM213A (Fall 2023)
