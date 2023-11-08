@@ -1,6 +1,6 @@
-# Abstract
+# Optimizing WiFi Sensing for Human Activity Recognition with Reduced Sampling Rates
 
-Provide a brief overview of the project objhectives, approach, and results.
+TODO: Provide a brief overview of the project objhectives, approach, and results.
 
 Recent studies have developed different sensing applications like human
 activity recognition (HAR) using WiFi channel state information (CSI)
