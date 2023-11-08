@@ -1,5 +1,7 @@
 # m202a-wifi-sensing
 
+View the [Docs](https://pooya.aghanoury.com/m202a-wifi-sensing/)!
+
 Recent studies have developed different sensing applications like human
 activity recognition (HAR) using WiFi channel state information (CSI)
 information. However, they usually use high and different sampling rates of
