@@ -18,11 +18,9 @@ Each one of these works makes different claims and assumptions about the rate of
 ## 3. Novelty & Rationale
 
 What is new in your approach and why do you think it will be successful?
-Our approach will make use of the following datasets:
-   -UT_HAR
-   -WIDAR
-   -NTU-Fi_HAR
-   -NTU-Fi_HumanID
+Our approach will make use of the following datasets: UT_HAR, WIDAR, NTU-Fi_HAR, NTU-Fi_HumanID.
+
+We will also be using the following models:MLP,LeNet, ResNet18, ResNet50, ResNet101, RNN, GRU, LSTM, BiLSTM, CNN+GRU, ViT.
 
 Each of these datasets has a collection of various labeled and unlabeled samples of human activity at a particular sampling rate (find out which on each is using). One method of exploring other sampling rates would be to downsample a given set, then train our models on that particular set either as it is, or with various types of interpolation.
 
