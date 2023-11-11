@@ -19,6 +19,10 @@ Each one of these works makes different claims and assumptions about the rate of
 
 What is new in your approach and why do you think it will be successful?
 Our approach will make use of the following datasets:
+   -UT_HAR
+   -WIDAR
+   -NTU-Fi_HAR
+   -NTU-Fi_HumanID
 
 Each of these datasets has a collection of various labeled and unlabeled samples of human activity at a particular sampling rate (find out which on each is using). One method of exploring other sampling rates would be to downsample a given set, then train our models on that particular set either as it is, or with various types of interpolation.
 
@@ -40,7 +44,9 @@ We aim to achieve classification performance similar to that found in the litera
 
 ## 8. Execution Plan
 
-As it currently stands...
+As it currently stands, we plan to first run trials using the recommended sampling rates and then with either downsampled or upsampled rates and then compare these results. Additionally, we will try different methods of downsampling and upsampling to see if results are different. We will run all the datasets against different models including MLP, LeNET, ResNet, etc. 
+
+If time permits we will explore what happens if the number of subcarriers change, if a different ML method is used, and using other datasets. 
 
 ## 9. Related Work
 
