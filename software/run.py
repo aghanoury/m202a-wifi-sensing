@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from util import load_data_n_model
 from scipy import signal
 from collections import defaultdict
+from sklearn import metrics
 
 def train(model, tensor_loader, num_epochs, learning_rate, criterion, device):
     model = model.to(device)
@@ -42,6 +43,11 @@ def test(model, tensor_loader, criterion, device):
     test_acc = 0
     test_loss = 0
 
+    label_acc = torch.tensor([])
+    predicted_acc = torch.tensor([])
+    label_acc = label_acc.to(device)
+    predicted_acc = predicted_acc.to(device)
+
     # create an accuracy map, later used for the confusion matrix
     accuracy_map = defaultdict(list)
 
@@ -55,10 +61,6 @@ def test(model, tensor_loader, criterion, device):
         outputs = outputs.type(torch.FloatTensor)
         outputs.to(device)
 
-        for i,j in zip(labels,outputs):
-            nt = torch.zeros_like(j)
-            nt[torch.argmax(j)] = 1
-            accuracy_map[i.item()].append(nt)
         
         loss = criterion(outputs,labels)
         predict_y = torch.argmax(outputs,dim=1).to(device)
@@ -66,18 +68,18 @@ def test(model, tensor_loader, criterion, device):
         test_acc += accuracy
         test_loss += loss.item() * inputs.size(0)
 
-    confusion_matrix = np.zeros((len(accuracy_map), len(accuracy_map)))
-    for k in accuracy_map:
-        accuracy_map[k] = torch.stack(accuracy_map[k])
-        accuracy_map[k] = torch.sum(accuracy_map[k], dim=0)
-        accuracy_map[k] = accuracy_map[k].cpu().numpy()
-        accuracy_map[k] = accuracy_map[k] / np.sum(accuracy_map[k])
-        confusion_matrix[k] = accuracy_map[k]
+        label_acc = torch.cat((label_acc, labels.to(device)), dim=0)
+        predicted_acc = torch.cat((predicted_acc, predict_y.to(device)), dim=0)
+
+    cm = metrics.confusion_matrix(label_acc.cpu(), predicted_acc.cpu())
+    cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+
+
 
     test_acc = test_acc/len(tensor_loader)
     test_loss = test_loss/len(tensor_loader.dataset)
     print("validation accuracy:{:.4f}, loss:{:.5f}".format(float(test_acc),float(test_loss)))
-    return confusion_matrix
+    return cm
 
     
 def main():
@@ -85,6 +87,8 @@ def main():
     parser = argparse.ArgumentParser('WiFi Imaging Benchmark')
     parser.add_argument('--dataset', choices = ['UT_HAR_data','NTU-Fi-HumanID','NTU-Fi_HAR','Widar'])
     parser.add_argument('--model', choices = ['MLP','LeNet','ResNet18','ResNet50','ResNet101','RNN','GRU','LSTM','BiLSTM', 'CNN+GRU','ViT'])
+    parser.add_argument('--preload', help="Path to the model to be loaded. If provided, skips training")
+    parser.add_argument('--save_model', action='store_true', help="Path to save the model")
     args = parser.parse_args()
 
     train_loader, test_loader, model, train_epoch = load_data_n_model(args.dataset, args.model, root)
@@ -92,14 +96,21 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
-    train(
-        model=model,
-        tensor_loader= train_loader,
-        num_epochs= train_epoch,
-        learning_rate=1e-3,
-        criterion=criterion,
-        device=device
-         )
+    if args.preload:
+        torch.load(args.preload)
+    else: 
+        train(
+            model=model,
+            tensor_loader= train_loader,
+            num_epochs= train_epoch,
+            learning_rate=1e-3,
+            criterion=criterion,
+            device=device)
+
+        if args.save_model:
+            torch.save(model.state_dict(), root + 'models/{}_{}'.format(args.dataset, args.model))
+
+
     cm = test(
         model=model,
         tensor_loader=test_loader,
@@ -107,33 +118,30 @@ def main():
         device= device
         )
 
-    # plot the confusion matrix
-    fig, ax = plt.subplots()
+    print("Confusion Matrix")
+    print(cm)
     plt.figure(figsize=(6,6))
+    cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = cm)
+    cm_display.plot()
+    cm_name = 'results/confusion_matrix_{}_{}_{}.pdf'.format(args.dataset, args.model, train_epoch)
+    plt.title('Epoch = {}, Dataset = {}'.format(train_epoch, args.dataset), pad=20)
+    plt.savefig(cm_name)
+    # set the title of the plot to the epoch number and dataset
 
-    # does not work with UTHAR
+    print("Saving confusion matrix to {}".format(cm_name))
+    print("Name format is as follows: confusion_matrix_{dataset_model}_{epoch}.pdf")
 
-    # TODO: get the appropriate class names
-    if args.dataset == 'NTU-Fi_HAR':
-        category_map = test_loader.dataset.category
-        class_names = [category_map[i] for i in range(len(category_map))]
-    else:
-        class_name = ['1','2','3','4','5','6']
 
-    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
-    plt.title('Epoch = {}'.format(train_epoch), pad=20)
-    plt.colorbar()
+    ## DEPRECATE 
 
-    # TODO: this will probably cause errors for other data sets
-    tick_marks = np.arange(6)
-    plt.xticks(tick_marks, class_names)
-    plt.yticks(tick_marks, class_names, va='center')
-    plt.ylabel('Actual label')
-    plt.xlabel('Predicted label')
-
-    # TODO: make the name more specific
-    plt.savefig('results/confusion_matrix.pdf')
-
+    # # TODO: get the appropriate class names
+    # if args.dataset == 'NTU-Fi_HAR':
+    #     category_map = test_loader.dataset.category
+    #     # swap keys and items in category_map
+    #     category_map = {v: k for k, v in category_map.items()}
+    #     class_names = [category_map[i] for i in range(len(category_map))]
+    # else:
+    #     class_names = ['1','2','3','4','5','6']
     return
 
 
