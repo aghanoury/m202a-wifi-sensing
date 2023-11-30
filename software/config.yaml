@@ -1,0 +1,26 @@
+
+# here's how to structure a run
+# 1. the first level of params is the run name, each of these needs to be unique
+# 2. for each run, specify the model and the dataset
+# 3. if you want to load a model, add the preload_model option and the 
+
+# model options
+# MLP, LeNet, ResNet18, ResNet50, ResNet101, RNN, GRU, LSTM, BiLSTM, CNN+GRU, ViT
+
+# dataset options
+# UT_HAR_data, NTU-Fi-HumanID, NTU-Fi_HAR, Widar
+
+train_run1:
+  # TODO: provide model or dataset specific params, i.e. we want 10 epochs for MLP and 100 for ResNet
+  models:
+    - MLP
+    # - LeNet
+    # - ResNet18
+  datasets:
+    - NTU-Fi-HumanID
+    - NTU-Fi_HAR
+    - UT_HAR_data
+  epochs: 
+    - 200
+  sampling_rates: # TODO
+    - default

@@ -1,7 +1,11 @@
+import argparse
+import yaml
+import json
+import multiprocessing
+from itertools import product
 import numpy as np
 import torch
 import torch.nn as nn
-import argparse
 import matplotlib.pyplot as plt
 from util import load_data_n_model
 from scipy import signal
@@ -89,47 +93,111 @@ def main():
     parser.add_argument('--model', choices = ['MLP','LeNet','ResNet18','ResNet50','ResNet101','RNN','GRU','LSTM','BiLSTM', 'CNN+GRU','ViT'])
     parser.add_argument('--preload', help="Path to the model to be loaded. If provided, skips training")
     parser.add_argument('--save_model', action='store_true', help="Path to save the model")
+    parser.add_argument('--param_run', help="Path to the yaml file containing the run parameters")
     args = parser.parse_args()
 
-    train_loader, test_loader, model, train_epoch = load_data_n_model(args.dataset, args.model, root)
-    criterion = nn.CrossEntropyLoss()
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model.to(device)
+    run_params = None
+    run_permutations = None
+    if args.param_run:
+        print("Loading parameters from {}".format(args.param_run))
+        with open(args.param_run, "r") as f:
+            run_params = yaml.safe_load(f)
 
-    if args.preload:
-        torch.load(args.preload)
-    else: 
+        # parse params
+        print("DEBUG")
+        print(json.dumps(run_params, indent=4, sort_keys=True))
+
+    # execute runs sequentially, execute trainings in parallel
+    for run,value in run_params.items():
+        if run == 'example_run': continue
+        models = value['models']
+        datasets = value['datasets']
+        epochs = value['epochs']
+        sampling_rates = value['sampling_rates']
+
+        # create a list of all the permutations of the models and datasets
+        run_permutations = list(product(models, datasets, epochs, sampling_rates))
+
+    # for now, execute the runs sequentially
+    for permutation in run_permutations:
+        model_name = permutation[0]
+        dataset = permutation[1]
+        epoch = permutation[2]
+        sampling_rate = permutation[3]
+
+        print("DEBUG: Running permutation: {}".format(permutation))
+    # testing code for multiprocessing to dispatch everything at once
+    # def square(x):
+    #     return x**2
+    # # Create a multiprocessing Pool with 3 processes
+    # with multiprocessing.Pool(processes=3) as pool:
+    #     # Use apply_async to dispatch tasks asynchronously
+    #     results = [pool.apply_async(square, (num,)) for num in numbers]
+    #     for r in results:
+    #         print(r.get())
+
+        # before we load the data
+        train_loader, test_loader, model, train_epoch = load_data_n_model(dataset, model_name, root)
+        train_epoch = epoch # override epoch
+        criterion = nn.CrossEntropyLoss()
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        model.to(device)
+
         train(
             model=model,
             tensor_loader= train_loader,
             num_epochs= train_epoch,
             learning_rate=1e-3,
             criterion=criterion,
-            device=device)
+            device=device
+            )
 
-        if args.save_model:
-            torch.save(model.state_dict(), root + 'models/{}_{}'.format(args.dataset, args.model))
+        cm = test(
+            model=model,
+            tensor_loader=test_loader,
+            criterion=criterion,
+            device= device
+            )
+
+        # print("Confusion Matrix")
+        # print(cm)
+        plt.figure(figsize=(6,6))
+        cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = cm)
+        cm_display.plot()
+        cm_name = 'results/confusion_matrix_{}_{}_{}_SR-{}.pdf'.format(dataset, model_name, train_epoch, sampling_rate)
+        plt.title('Epoch = {}, Dataset = {}'.format(train_epoch, dataset), pad=20)
+        plt.savefig(cm_name)
+        # set the title of the plot to the epoch number and dataset
+
+        print("Saving confusion matrix to {}".format(cm_name))
+
+    # if args.preload:
+    #     torch.load(args.preload)
+    # else: 
+    #     train(
+    #         model=model,
+    #         tensor_loader= train_loader,
+    #         num_epochs= train_epoch,
+    #         learning_rate=1e-3,
+    #         criterion=criterion,
+    #         device=device)
+
+    #     if args.save_model:
+    #         torch.save(model.state_dict(), root + 'models/{}_{}'.format(args.dataset, args.model))
 
 
-    cm = test(
-        model=model,
-        tensor_loader=test_loader,
-        criterion=criterion,
-        device= device
-        )
+    # cm = test(
+    #     model=model,
+    #     tensor_loader=test_loader,
+    #     criterion=criterion,
+    #     device= device
+    #     )
 
-    print("Confusion Matrix")
-    print(cm)
-    plt.figure(figsize=(6,6))
-    cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = cm)
-    cm_display.plot()
-    cm_name = 'results/confusion_matrix_{}_{}_{}.pdf'.format(args.dataset, args.model, train_epoch)
-    plt.title('Epoch = {}, Dataset = {}'.format(train_epoch, args.dataset), pad=20)
-    plt.savefig(cm_name)
-    # set the title of the plot to the epoch number and dataset
 
-    print("Saving confusion matrix to {}".format(cm_name))
-    print("Name format is as follows: confusion_matrix_{dataset_model}_{epoch}.pdf")
+    # save results in form of confusion matrix
+    
+
+    
 
 
     ## DEPRECATE 
