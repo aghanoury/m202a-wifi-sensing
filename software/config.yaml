@@ -10,6 +10,16 @@
 # dataset options
 # UT_HAR_data, NTU-Fi-HumanID, NTU-Fi_HAR, Widar
 
+train_run0:
+  models:
+    - MLP
+  datasets:
+    - UT_HAR_data
+  epochs:
+    - 10
+  sampling_rates:
+    - default
+
 train_run1:
   # TODO: provide model or dataset specific params, i.e. we want 10 epochs for MLP and 100 for ResNet
   models:

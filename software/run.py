@@ -93,27 +93,44 @@ def main():
     parser.add_argument('--model', choices = ['MLP','LeNet','ResNet18','ResNet50','ResNet101','RNN','GRU','LSTM','BiLSTM', 'CNN+GRU','ViT'])
     parser.add_argument('--preload', help="Path to the model to be loaded. If provided, skips training")
     parser.add_argument('--save_model', action='store_true', help="Path to save the model")
-    parser.add_argument('--param_run', help="Path to the yaml file containing the run parameters")
+    parser.add_argument('--config', help="Path to the yaml file containing the run parameters")
+    parser.add_argument('--runs', help="Name of the specific config within the provided yaml file")
+    parser.add_argument('--exclude_runs', help="Name of the specific config to exclude within the provided yaml file")
     args = parser.parse_args()
+    
+    print(args.config)
 
     run_params = None
     run_permutations = None
-    if args.param_run:
-        print("Loading parameters from {}".format(args.param_run))
-        with open(args.param_run, "r") as f:
+    if args.config:
+        print("Loading parameters from {}".format(args.config))
+        with open(args.config, "r") as f:
             run_params = yaml.safe_load(f)
 
-        # parse params
-        print("DEBUG")
-        print(json.dumps(run_params, indent=4, sort_keys=True))
+    # TODO: 
+    # runs_to_ignore = ["example_run"]
+    # runs = list(run_params.keys())
+    # if args.exclude_runs:
+    #     runs_to_ignore += args.exclude_runs.split(',')
 
-    # execute runs sequentially, execute trainings in parallel
+    # # only run these
+    # if args.runs:
+    
     for run,value in run_params.items():
+        
+        # TODO: handle this differently
         if run == 'example_run': continue
-        models = value['models']
-        datasets = value['datasets']
-        epochs = value['epochs']
-        sampling_rates = value['sampling_rates']
+        if args.runs and run != args.runs: continue
+
+        try:
+            models = value['models']
+            datasets = value['datasets']
+            epochs = value['epochs']
+            sampling_rates = value['sampling_rates']
+        except KeyError as e:
+            print("Error: {} not found in the yaml file".format(e))
+            print("Please check the yaml file and try again")
+            exit(1)
 
         # create a list of all the permutations of the models and datasets
         run_permutations = list(product(models, datasets, epochs, sampling_rates))
