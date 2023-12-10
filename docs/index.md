@@ -1,4 +1,10 @@
-# Abstract
+# Home
+
+<!-- add a random image from unsplash -->
+
+![image](https://source.unsplash.com/random/400x200)
+
+## Abstract
 
 Recent studies have developed different sensing applications like human
 activity recognition (HAR) using WiFi channel state information (CSI)
@@ -12,12 +18,12 @@ counting; [5] exploits 200Hz for sign language recognition; etc. Therefore,
 it’s interesting to explore different applications’ dependence on sampling
 rates.
 
-# Team
+## Team
 
 - Emmanuel Magana Mendez
 - Pooya Aghanoury
 
-# Required Submissions
+## Required Submissions
 
 - [Proposal](proposal)
 - [Midterm Checkpoint Presentation Slides](http://)

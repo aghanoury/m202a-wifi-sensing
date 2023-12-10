@@ -42,9 +42,9 @@ We aim to achieve classification performance similar to that found in the litera
 
 ## 8. Execution Plan
 
-As it currently stands, we plan to first run trials using the recommended sampling rates and then with either downsampled or upsampled rates and then compare these results. Additionally, we will try different methods of downsampling and upsampling to see if results are different. We will run all the datasets against different models including MLP, LeNET, ResNet, etc. 
+As it currently stands, we plan to first run trials using the recommended sampling rates and then with either downsampled or upsampled rates and then compare these results. Additionally, we will try different methods of downsampling and upsampling to see if results are different. We will run all the datasets against different models including MLP, LeNET, ResNet, etc.
 
-If time permits we will explore what happens if the number of subcarriers change, if a different ML method is used, and using other datasets. 
+If time permits we will explore what happens if the number of subcarriers change, if a different ML method is used, and using other datasets.
 
 ## 9. Related Work
 
