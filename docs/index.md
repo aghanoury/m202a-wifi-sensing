@@ -31,6 +31,7 @@ it’s interesting to explore different applications’ dependence on sampling
 rates.
 
 
+
 ## Team
 
 - Emmanuel Magana Mendez
