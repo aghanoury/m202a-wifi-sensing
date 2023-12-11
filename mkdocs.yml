@@ -6,7 +6,6 @@ theme:
     - scheme: default
       toggle:
         icon: material/brightness-7
-
         name: Switch to dark mode
 
     # Palette toggle for dark mode
@@ -16,3 +15,9 @@ theme:
         name: Switch to light mode
   features:
     - toc.integrate
+
+  icon:
+    repo: fontawesome/brands/git-alt
+
+repo_url: https://github.com/aghanoury/m202a-wifi-sensing/
+repo_name: M202a WiFi Sensing
