@@ -30,6 +30,7 @@ counting; [5] exploits 200Hz for sign language recognition; etc. Therefore,
 it’s interesting to explore different applications’ dependence on sampling
 rates.
 
+
 ## Team
 
 - Emmanuel Magana Mendez
