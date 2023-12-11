@@ -1,8 +1,20 @@
 # Home
 
-<!-- add a random image from unsplash -->
+## Downloads
 
-![image](https://source.unsplash.com/random/400x200)
+<span>
+<a href="https://github.com/aghanoury/m202a-wifi-sensing/tarball/main">
+    <img src="https://cdn3.iconfinder.com/data/icons/blue-ulitto/128/Compressed_files_Compressed_Tarball_File-512.png" alt="Random Image" width="100px"/>
+</a>
+<a href="https://github.com/aghanoury/m202a-wifi-sensing/zipball/main">
+    <img src="https://play-lh.googleusercontent.com/MCsVAtEBUqNnIboa3GM_enVZ8qcmeR37xs6BNx9716i7JdyB_VdmD7IZ6ywo7kDisDE" alt="Random Image" 
+    width="100px"/>
+</a>
+<a href="https://github.com/aghanoury/m202a-wifi-sensing/">
+    <img src="https://cdn-icons-png.flaticon.com/512/179/179323.png" alt="Random Image" 
+    width="100px"/>
+</a>
+</span>
 
 ## Abstract
 
