@@ -31,7 +31,6 @@ it’s interesting to explore different applications’ dependence on sampling
 rates.
 
 
-
 ## Team
 
 - Emmanuel Magana Mendez
@@ -39,7 +38,7 @@ rates.
 
 ## Required Submissions
 
-- [Proposal](proposal)
-- [Midterm Checkpoint Presentation Slides](http://)
-- [Final Presentation Slides](http://)
-- [Final Report](report)
+- [Proposal](proposal.md)
+- [Midterm Checkpoint Presentation Slides](https://docs.google.com/presentation/d/1Htf6vL7fYgZne0Y3WzuVqS-RoeZrsdSdSzBRnUI0TpQ/edit?usp=sharing)
+- [Final Presentation Slides](https://docs.google.com/presentation/d/1vP0aNV5Zgl6X88qpT-Krqv_PRcyjsX0qSn3wZY_cdho/edit?usp=sharing)
+- [Final Report](report.md)
