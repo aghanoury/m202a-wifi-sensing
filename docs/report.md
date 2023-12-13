@@ -10,8 +10,10 @@
         - [BVP](#bvp)
         - [General Feature Extractions](#general-feature-extractions)
     - [Deep Learning Models](#deep-learning-models)
-    - [Motivation](#motivation)
+- [Motivation](#motivation)
 - [3. Technical Approach](#3-technical-approach)
+    - [Summary of Datasets](#summary-of-datasets)
+    - [Code](#code)
 - [4. Evaluation and Results](#4-evaluation-and-results)
 - [5. Discussion and Conclusions](#5-discussion-and-conclusions)
 - [6. References](#6-references)
@@ -174,13 +176,83 @@ feature-extracted data.
 *traditional RNNs, allowing better handling of long-term dependencies. However,
 *it introduces increased complexity compared to standard RNNs.
 
-### Motivation
+## Motivation
 The motivation involves gathering Channel State Information (CSI) at the edge, followed by post-processing, potentially including denoising, and feature extraction using methods like Short-Time Fourier Transform (STFT) and Velocity Profile. The feature data is then offloaded to servers for machine learning classification. The primary goal is to analyze the impact of sampling rate on classification performance, with the potential benefit of minimizing traffic between the edge and the cloud.
 
 ![motivation](media/motivation.png)
 *Figure ??: General WiFi HAR processing architecture with emphasis where our work explores*
 
 ## 3. Technical Approach
+
+In this work, we make use of several datasets as follows:
+
+1. **UT-HAR [?]:** Includes measurements of 7 different activities.
+2. **NTU-FI [?]:** A Human Activity Recognition (HAR) dataset featuring 6 different activities.
+3. **HumanID:** A dataset focused on the gait of 15 individuals.
+4. **Widar [?]:** Comprises a dataset with records of 22 different activities.
+5. **SignFi [?]:** Involves a dataset with 256 different signed symbols.
+
+Furthermore, we build upon the framework from SenseFi [?], which uses Python,
+Pytorch, and some other works [??] which use Matlab. 
+
+Lastly, we make use of the following models:
+- Multi-layer Perceptron (MLP)
+- Recurrent Neural Network (RNN)
+- Gated Recurrent Unit (GRU)
+- Gated Recurrent Unit + Convolutional Neural Network (GRU+CNN)
+- LeNet (Special Type of CNN) [??]
+- CNN – Used in SignFi
+
+### Summary of Datasets
+|    Datasets    |                             Activities                              |               Environment               |                  Number of subjects/samples                  |   BW   |
+| :------------: | :-----------------------------------------------------------------: | :-------------------------------------: | :----------------------------------------------------------: | :----: |
+|   NTU-Fi-HAR   | 6: running, walking, falling, boxing, circling arms, cleaning floor |                   Lab                   |              20 people, each activity 20 times               | 40 MHz |
+| NTU-Fi-HumanID |                          15 people’s gait                           |             Lab, 3 scenario             |                          15 people                           | 40 MHz |
+|     UT-HAR     |          6: lie down, fall, walk, run, sit down, stand up           |                 Office                  | 6 people, 20 trials per activity Data collected continuously | 20 MHz |
+|     Widar      |         22: Push, Pull,Sweep,Clap,Slide, 18 types of Draws          | 3 environments: classroom, hall, office |                        16 volunteers                         | 20 MHz |
+|     SignFi     |                         276 signed gestures                         |                Lab, home                |                           5 people                           | 20 MHz |
+
+### Code
+Once the datasets are downloaded, we forked the SenseFi repository and made
+signifcant modifications to their framework to help address our research
+questions. Specifically, our code includes approaches to
+downsampling, matrix reduction, and modifications to alter the number of
+subcarriers, thus effectively influencing the bandwidth of the data. We explore
+different downsampling methods, ranging from straightforward matrix reduction
+techniques—such as selecting every nth column—to utilizing Python's decimate
+function and implementing custom downsampling functions. Furthermore, our code
+incorporates considerations for downsampling at different stages of data
+processing, be it before or after converting the data into tensor format. To
+enhance our data analysis capabilities, we have also integrated functionality to
+generate a confusion matrix. Overall, these code implementations contribute to a
+comprehensive and flexible framework for processing and understanding the
+intricacies of the datasets in our project.
+
+Below is a summary of our methods:
+
+- Matrix Reduction:
+    - Taking every second column for half the sampling frequency, every 4th for ¼ the sampling, etc.
+    - Example: x = x[:,::2];
+
+- Decimate Function:
+    - Using the decimate function in Python with a specified decimation factor (q=8, zero_phase=True).
+    - Example: x = decimate(x, q=8, zero_phase=True)
+
+- Custom Downsampling Functions:
+    - Implementing custom downsampling functions.
+
+- Different Areas for Downsampling:
+    - Considering downsampling at various stages, such as pre or post converting the data to tensor format.
+
+- Confusion Matrix Development:
+    - Adding code to generate a confusion matrix for further data analysis.
+
+- Changing the Number of Subcarriers:
+    - Modifying the number of subcarriers, effectively altering the bandwidth.
+
+These methods collectively address downsampling, matrix reduction, and
+additional modifications to analyze and manipulate the data effectively in the
+context of signal processing and machine learning.
 
 ## 4. Evaluation and Results
 
