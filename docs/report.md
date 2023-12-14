@@ -156,7 +156,7 @@ data on the server itself, emphasizing the classification based on
 feature-extracted data.
 
 ![NTU](media/NTU_feature_extraction.png)
-*Figure ??: architecture of NTU-Fi*
+*Figure 4: architecture of NTU-Fi*
 
 ### Deep Learning Models
 **MLP** (Multi-Layer Perceptron): Simple and robust architecture, but slow
@@ -180,27 +180,27 @@ feature-extracted data.
 The motivation involves gathering Channel State Information (CSI) at the edge, followed by post-processing, potentially including denoising, and feature extraction using methods like Short-Time Fourier Transform (STFT) and Velocity Profile. The feature data is then offloaded to servers for machine learning classification. The primary goal is to analyze the impact of sampling rate on classification performance, with the potential benefit of minimizing traffic between the edge and the cloud.
 
 ![motivation](media/motivation.png)
-*Figure ??: General WiFi HAR processing architecture with emphasis where our work explores*
+*Figure 5: General WiFi HAR processing architecture with emphasis where our work explores*
 
 ## 3. Technical Approach
 
 In this work, we make use of several datasets as follows:
 
-1. **UT-HAR [?]:** Includes measurements of 7 different activities.
-2. **NTU-FI [?]:** A Human Activity Recognition (HAR) dataset featuring 6 different activities.
+1. **UT-HAR [7]:** Includes measurements of 7 different activities.
+2. **NTU-FI [6]:** A Human Activity Recognition (HAR) dataset featuring 6 different activities.
 3. **HumanID:** A dataset focused on the gait of 15 individuals.
-4. **Widar [?]:** Comprises a dataset with records of 22 different activities.
-5. **SignFi [?]:** Involves a dataset with 256 different signed symbols.
+4. **Widar [3]:** Comprises a dataset with records of 22 different activities.
+5. **SignFi [5]:** Involves a dataset with 256 different signed symbols.
 
-Furthermore, we build upon the framework from SenseFi [?], which uses Python,
-Pytorch, and some other works [??] which use Matlab. 
+Furthermore, we build upon the framework from SenseFi [6], which uses Python,
+Pytorch, and some other works [5] which use Matlab. 
 
 Lastly, we make use of the following models:
 - Multi-layer Perceptron (MLP)
 - Recurrent Neural Network (RNN)
 - Gated Recurrent Unit (GRU)
 - Gated Recurrent Unit + Convolutional Neural Network (GRU+CNN)
-- LeNet (Special Type of CNN) [??]
+- LeNet (Special Type of CNN) [6]
 - CNN – Used in SignFi
 
 ### Summary of Datasets
@@ -237,6 +237,9 @@ Below is a summary of our methods:
 - Decimate Function:
     - Using the decimate function in Python with a specified decimation factor (q=8, zero_phase=True).
     - Example: x = decimate(x, q=8, zero_phase=True)
+    - To use this method, we had to include additional code: x=x.copy()
+    - This was neccesary because when we used the decimate function, negative strides occur and as of the time of writing this report, PyTorch is not comptabile         with negative strides.
+    - Strides are used to access the elements in the tensor.
 
 - Custom Downsampling Functions:
     - Implementing custom downsampling functions.
@@ -255,7 +258,61 @@ additional modifications to analyze and manipulate the data effectively in the
 context of signal processing and machine learning.
 
 ## 4. Evaluation and Results
+In this section, we will be discussing the results. We saw no difference with how we implemented the downsampling in the final accuracy. However, we did notice that the time to complete training would be servely delayed if we used the decimate function. This is because of the additional line of code needed to correct the negative strides would force the matrix to be reconstructed every single time. So, we used the matrix reduction method to generate results fastest. Additionally, the area of downsampling did not change the end results. So, we could downsample before or after converting the data to tensor format and saw no change in accuracy or runtime. 
+
+![NTUresults](media/NTU-Fi-HAR_results.png)
+*Figure 6: Accuracy vs Frequency plot for NTU-Fi-HAR dataset with various models*
+
+As can be seen from Figure 6, very little change in accuracy when downsampling; the largest delta being ~5%. The best performing and most robust model was GRU in our experiments.
+
+![NTUHIresults](media/NTU-Fi-HumanID_results.png)
+*Figure 7: Accuracy vs Frequency plot for NTU-Fi-HumanID dataset with various models*
+
+As can be seen from Figure 7, there was very little change in accuracy as well when downsampling; the largest delta being ~4%. The best performing and most robust model was again GRU.
+
+![UTresults](media/UT-HAR-Results.png)
+*Figure 8: Accuracy vs Frequency plot for UT-HAR dataset with various models*
+
+As can be seen from Figure 8, there was more of a change in accuracy when downsampling compared to NTU-Fi-HAR and HumanID datasets; the largest delta being ~10%. However, it was still not a significant decrease. The best performing model here was LeNet, but the most robust was MLP. 
+
+![Widarresults](media/Widar-Results.png)
+*Figure 9: Accuracy vs Frequency plot for Widar dataset with various models*
+
+As can be seen from this Figure 9, there was significant decrease in accuracy when downsampling occured; the largest delta being ~50%. The best performing model here was MLP, but we did not have a robust model since all that were tested experienced the similar results. 
+
+![Signfiresults](media/Signfi-Results.png)
+*Figure 10: Accuracy vs Frequency plot for SignFi dataset with a CNN model*
+
+As can be seen from Figure 10, there was also a decrease in accuracy when downsampling. The accuracy would decrease ~10% each time the frequency was downsampled by half. 
+
+Add info regarding confusion matrices.
 
 ## 5. Discussion and Conclusions
+From our results, we can see that datasets that had less activities would be less affected by downsampling. NTU-Fi-HAR had 6 activities but only two of them were similar. This explains why the accuracy did drop slightly with downsampling but not much overall. NTU-Fi-HumanID had 15 "activites" each representing the gait of distinct individuals. The accuracy changed very little as well because the gait of an individual can be unique enough to provide proper classification. UT-HAR had 7 activities and did see more of a decrease in accuracy when compared to NTU-Fi datasets. This is because UT-HAR had 2 pairs of activites that were similar that when downsampling could be potentially misclassified resulting in the decrease in accuracy we saw. Widar and SignFi had the largest decrease in accuracy because those two had more similar activites. Widar dataset is composed of 22 activites, 18 of which draws using hands, and SignFi dataset has 276 signed gestures. When downsampling, the information to properly classify the hand gestures or draws could have been lost or not enough information was present to properly classify the signs. 
+
+Additionally, we saw some interesting results that should be explored further. When comparing the datasets and how they were structured, we noticed that the ones that were composed of only the amplitude component of the CSI data performed better. This included NTU-Fi datasets and the UT-HAR dataset. In contrast, the datasets composed of both the amplitude and phase component performed worse. SignFi directly used the amplitude and phase components in it's code and Widar dataset was composed of BVP which are derived from the amplitude and phase. This should be explored further to rule out as a contributing factor. 
+
+Also, changing the subcarriers used did affect the accuracy. We conducted an experiment where we divided the subcarriers into even groups of 3. When the second and thrid group were used, the accuracy would be around the same as if we used the entire set of subcarriers. However, when we used the first group, the accuracy decreased about 20-30%. Due to time constraint and this being out of scope of the project, we could not dive more into this but it should also be explored further. The accuracy did not change if we kept the same subcarrier group constant but downsampled. 
+
+Overall, we succeeded in identifying the effect of downsampling on the accuracy of WiFi sensing for various models and datasets that contained many different activites. We also indentified potential areas for future work.
+
+First, it would be interesting to explore downsampling the raw data. This project focused on the downsampling pre-processed data. But what would happen if the downsampling occured on the raw data? Would the results be any different? Also, if you processed the downsampled raw data would it match the downsampled pre-processed data from this experiment?
+
+Second, the subcarrier selection should be explored further; it seemed to be headed to some interesting results. Third, explore various models and architectures.
+Foruth, explore using multi-modal HAR like combining multiple data sets/sensors. Lastly, exploring which activities require CSI amplitude for proper classification vs which require amplitude and phase. This should be explored only if the correlation that we noticed is confirmed.
+
+We would like to thank Professor Mani Srivastava and Gaofeng Dong for their support and guidance throughout this project.
 
 ## 6. References
+[1] Wang, Wei, et al. "Understanding and modeling of wifi signal based human activity recognition." MobiCom (2015).
+[2] Yang, Jianfei, et al. "EfficientFi: Toward large-scale lightweight WiFi sensing via CSI compression." IEEE Internet of Things Journal (2022).
+[3] Guo, Linlin, et al. "Wiar: A public dataset for wifi-based activity recognition." IEEE Access (2019).
+[4] Hou, Huawei, et al. "DASECount: Domain-Agnostic Sample-Efficient Wireless Indoor Crowd Counting via Few-Shot Learning." IEEE Internet of Things Journal (2022).
+[5] Ma, Yongsen, et al. "SignFi: Sign language recognition using WiFi." ACM IMWUT (2018).
+[6] Yang, Chen, et al. "SenseFi: A Library and Benchmark on Deep-Learning-Empowered WiFi Human Sensing", Patterns (2023).
+[7] Yousefi, Narui, et al. "A Survey on Behavior Recognition Using WiFi Channel State Information"IEEE Comunication Magazine (2017)
+[8] Zheng Yang, Yi Zhang, Guidong Zhang, Yue Zheng, December 26, 2020, "Widar 3.0: WiFi-based Activity Recognition Dataset", IEEE Dataport, doi: https://dx.doi.org/10.21227/7znf-qp86.
+[9] M. Cominelli, F. Gringoli and F. Restuccia, "Exposing the CSI: A Systematic Investigation of CSI-based Wi-Fi Sensing Capabilities and Limitations," 2023 IEEE International Conference on Pervasive Computing and Communications (PerCom), Atlanta, GA, USA, 2023, pp. 81-90, doi: 10.1109/PERCOM56429.2023.10099368.
+[10] https://wirelesspi.com/advantages-and-disadvantages-of-ofdm-a-summary/
+[11] From Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner, “Gradient-based learning applied to document recognition,”Proceedings of the IEEE, vol.86,no.11,pp.2278–2324,1998.
+[12] Sim JM, Lee Y, Kwon O. Acoustic Sensor Based Recognition of Human Activity in Everyday Life for Smart Home Services. International Journal of Distributed Sensor Networks. 2015;11(9). doi:10.1155/2015/679123
