@@ -14,7 +14,7 @@ def UT_HAR_dataset(root_dir):
         data_name = data_dir.split('/')[-1].split('.')[0]
         with open(data_dir, 'rb') as f:
             data = np.load(f)
-            data = data[:,::50]
+            data = data[:,::50] #edit to downsample
             data = data.reshape(len(data),1,5,90) #edit the second to last digit to match your new matrix size
             data_norm = (data - np.min(data)) / (np.max(data) - np.min(data))
         WiFi_data[data_name] = torch.Tensor(data_norm)
