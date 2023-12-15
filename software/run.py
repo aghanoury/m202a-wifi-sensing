@@ -1,8 +1,4 @@
 import argparse
-import yaml
-import json
-import multiprocessing
-from itertools import product
 import numpy as np
 import torch
 import torch.nn as nn
@@ -85,148 +81,41 @@ def test(model, tensor_loader, criterion, device):
     print("validation accuracy:{:.4f}, loss:{:.5f}".format(float(test_acc),float(test_loss)))
     return cm
 
+
     
 def main():
-    root = '/data/manny/Data/' 
+    root = '/data/manny/Data/' #edit this path to wherever you have datasets saved
     parser = argparse.ArgumentParser('WiFi Imaging Benchmark')
     parser.add_argument('--dataset', choices = ['UT_HAR_data','NTU-Fi-HumanID','NTU-Fi_HAR','Widar'])
     parser.add_argument('--model', choices = ['MLP','LeNet','ResNet18','ResNet50','ResNet101','RNN','GRU','LSTM','BiLSTM', 'CNN+GRU','ViT'])
-    parser.add_argument('--preload', help="Path to the model to be loaded. If provided, skips training")
-    parser.add_argument('--save_model', action='store_true', help="Path to save the model")
-    parser.add_argument('--config', help="Path to the yaml file containing the run parameters")
-    parser.add_argument('--runs', help="Name of the specific config within the provided yaml file")
-    parser.add_argument('--exclude_runs', help="Name of the specific config to exclude within the provided yaml file")
     args = parser.parse_args()
-    
-    print(args.config)
 
-    run_params = None
-    run_permutations = None
-    if args.config:
-        print("Loading parameters from {}".format(args.config))
-        with open(args.config, "r") as f:
-            run_params = yaml.safe_load(f)
+    train_loader, test_loader, model, train_epoch = load_data_n_model(args.dataset, args.model, root)
+    criterion = nn.CrossEntropyLoss()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
 
-    # TODO: 
-    # runs_to_ignore = ["example_run"]
-    # runs = list(run_params.keys())
-    # if args.exclude_runs:
-    #     runs_to_ignore += args.exclude_runs.split(',')
-
-    # # only run these
-    # if args.runs:
-    
-    for run,value in run_params.items():
-        
-        # TODO: handle this differently
-        if run == 'example_run': continue
-        if args.runs and run != args.runs: continue
-
-        try:
-            models = value['models']
-            datasets = value['datasets']
-            epochs = value['epochs']
-            sampling_rates = value['sampling_rates']
-        except KeyError as e:
-            print("Error: {} not found in the yaml file".format(e))
-            print("Please check the yaml file and try again")
-            exit(1)
-
-        # create a list of all the permutations of the models and datasets
-        run_permutations = list(product(models, datasets, epochs, sampling_rates))
-
-    # for now, execute the runs sequentially
-    for permutation in run_permutations:
-        model_name = permutation[0]
-        dataset = permutation[1]
-        epoch = permutation[2]
-        sampling_rate = permutation[3]
-
-        print("DEBUG: Running permutation: {}".format(permutation))
-    # testing code for multiprocessing to dispatch everything at once
-    # def square(x):
-    #     return x**2
-    # # Create a multiprocessing Pool with 3 processes
-    # with multiprocessing.Pool(processes=3) as pool:
-    #     # Use apply_async to dispatch tasks asynchronously
-    #     results = [pool.apply_async(square, (num,)) for num in numbers]
-    #     for r in results:
-    #         print(r.get())
-
-        # before we load the data
-        train_loader, test_loader, model, train_epoch = load_data_n_model(dataset, model_name, root)
-        train_epoch = epoch # override epoch
-        criterion = nn.CrossEntropyLoss()
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        model.to(device)
-
-        train(
-            model=model,
-            tensor_loader= train_loader,
-            num_epochs= train_epoch,
-            learning_rate=1e-3,
-            criterion=criterion,
-            device=device
-            )
-
-        cm = test(
+    train(
+        model=model,
+        tensor_loader= train_loader,
+        num_epochs= train_epoch,
+        learning_rate=1e-3,
+        criterion=criterion,
+        device=device
+         )
+    cm = test(
             model=model,
             tensor_loader=test_loader,
             criterion=criterion,
             device= device
             )
-
-        # print("Confusion Matrix")
-        # print(cm)
-        plt.figure(figsize=(6,6))
-        cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = cm)
-        cm_display.plot()
-        cm_name = 'results/confusion_matrix_{}_{}_{}_SR-{}.pdf'.format(dataset, model_name, train_epoch, sampling_rate)
-        plt.title('Epoch = {}, Dataset = {}'.format(train_epoch, dataset), pad=20)
-        plt.savefig(cm_name)
-        # set the title of the plot to the epoch number and dataset
-
-        print("Saving confusion matrix to {}".format(cm_name))
-
-    # if args.preload:
-    #     torch.load(args.preload)
-    # else: 
-    #     train(
-    #         model=model,
-    #         tensor_loader= train_loader,
-    #         num_epochs= train_epoch,
-    #         learning_rate=1e-3,
-    #         criterion=criterion,
-    #         device=device)
-
-    #     if args.save_model:
-    #         torch.save(model.state_dict(), root + 'models/{}_{}'.format(args.dataset, args.model))
+    plt.figure(figsize=(25,25))
+    cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = cm)
+    cm_display.plot()
+    cm_name = 'temp' #edit this to desired label name
+    plt.savefig(cm_name)
 
 
-    # cm = test(
-    #     model=model,
-    #     tensor_loader=test_loader,
-    #     criterion=criterion,
-    #     device= device
-    #     )
-
-
-    # save results in form of confusion matrix
-    
-
-    
-
-
-    ## DEPRECATE 
-
-    # # TODO: get the appropriate class names
-    # if args.dataset == 'NTU-Fi_HAR':
-    #     category_map = test_loader.dataset.category
-    #     # swap keys and items in category_map
-    #     category_map = {v: k for k, v in category_map.items()}
-    #     class_names = [category_map[i] for i in range(len(category_map))]
-    # else:
-    #     class_names = ['1','2','3','4','5','6']
     return
 
 
