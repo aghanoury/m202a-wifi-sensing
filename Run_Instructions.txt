@@ -1,0 +1,57 @@
+To run the python files:
+
+Insure you have these minimum packages installed:
+	-Install pytorch and torchvision
+	-pip install -r requirements.txt
+These are the minimum requirements. We ran on higher versions with no issues.
+
+Insure you have the datasets installed and saved somewhere locally. The folders should have the following format:
+├── Data
+    ├── NTU-Fi_HAR
+    │   ├── test_amp
+    │   ├── train_amp
+    ├── NTU-Fi-HumanID
+    │   ├── test_amp
+    │   ├── train_amp
+    ├── UT_HAR
+    │   ├── data
+    │   ├── label
+    ├── Widardata
+    │   ├── test
+    │   ├── train
+
+To run the code use the following command: python run.py --model [model name] --dataset [dataset name]
+
+where [model name] is:
+MLP
+LeNet
+ResNet18
+ResNet50
+ResNet101
+RNN
+GRU
+LSTM
+BiLSTM
+CNN+GRU
+ViT
+
+and [dataset name] is:
+UT_HAR_data
+NTU-Fi-HumanID
+NTU-Fi_HAR
+Widar
+
+
+Review the code if you are planning to downsample, the run.py, dataset.py, and whichever dataset_model.py file you are using i.e. if using NTU-Fi_HAR make the necessary edits to the NTU_Fi_model.py file. The code has been commented with where to edit depending on the input matrix size.
+
+
+
+
+To run the matlab file:
+Download the .m file and the dataset that can be found in the source document. In matlab pass the following command:
+>>load('dataset_lab_276_dl.mat')
+>>[net_info, perf] = signfi_cnn_example(csid_lab,label_lab)
+
+Code has been commented with where to edit to downsample.
+
+For additional help, contact Emmanuel Magana Mendez (emagana6622@ucla.edu) or Pooya Aghanoury (aghanoury@g.ucla.edu). 
