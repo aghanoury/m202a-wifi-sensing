@@ -181,7 +181,7 @@ class UT_HAR_RNN(nn.Module):
         self.rnn = nn.RNN(90,hidden_dim,num_layers=1)
         self.fc = nn.Linear(hidden_dim,7)
     def forward(self,x):
-        x = x.view(-1,250,90)
+        x = x.view(-1,250,90) #edit second digit to match dataset matrix
         x = x.permute(1,0,2)
         _, ht = self.rnn(x)
         outputs = self.fc(ht[-1])
@@ -194,7 +194,7 @@ class UT_HAR_GRU(nn.Module):
         self.gru = nn.GRU(90,hidden_dim,num_layers=1)
         self.fc = nn.Linear(hidden_dim,7)
     def forward(self,x):
-        x = x.view(-1,250,90)
+        x = x.view(-1,250,90)  #edit second digit to match dataset matrix
         x = x.permute(1,0,2)
         _, ht = self.gru(x)
         outputs = self.fc(ht[-1])
@@ -207,7 +207,7 @@ class UT_HAR_LSTM(nn.Module):
         self.lstm = nn.LSTM(90,hidden_dim,num_layers=1)
         self.fc = nn.Linear(hidden_dim,7)
     def forward(self,x):
-        x = x.view(-1,250,90)
+        x = x.view(-1,250,90) #edit second digit to match dataset matrix
         x = x.permute(1,0,2)
         _, (ht,ct) = self.lstm(x)
         outputs = self.fc(ht[-1])
@@ -232,7 +232,7 @@ class UT_HAR_CNN_GRU(nn.Module):
         super(UT_HAR_CNN_GRU,self).__init__()
         self.encoder = nn.Sequential(
             #input size: (250,90)
-            nn.Conv1d(250,250,12,3),
+            nn.Conv1d(250,250,12,3),  #edit first digit to match dataset matrix
             nn.ReLU(True),
             nn.Conv1d(250,250,5,2),
             nn.ReLU(True),
@@ -247,7 +247,7 @@ class UT_HAR_CNN_GRU(nn.Module):
         )
     def forward(self,x):
         # batch x 1 x 250 x 90
-        x = x.view(-1,250,90)
+        x = x.view(-1,250,90)  #edit second digit to match dataset matrix
         x = self.encoder(x)
         # batch x 250 x 8
         x = x.permute(1,0,2)
