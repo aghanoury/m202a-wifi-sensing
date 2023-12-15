@@ -38,13 +38,13 @@ dataset has ample room to reduce sampling rate without sacrificing accuracy.
 
 This section should cover the following items:
 
-- Motivation & Objective: What are you trying to do and why? (plain English without jargon)
+<!-- - Motivation & Objective: What are you trying to do and why? (plain English without jargon)
 - State of the Art & Its Limitations: How is it done today, and what are the limits of current practice?
 - Novelty & Rationale: What is new in your approach and why do you think it will be successful?
 - Potential Impact: If the project is successful, what difference will it make, both technically and broadly?
 - Challenges: What are the challenges and risks?
 - Requirements for Success: What skills and resources are necessary to perform the project?
-- Metrics of Success: What are metrics by which you would check for success?
+- Metrics of Success: What are metrics by which you would check for success? -->
 
 Human Activity Recognition (HAR) is the process of identifying and interpreting
 the actions and activities performed by humans through the analysis of data
@@ -59,8 +59,8 @@ for sample reduction without compromising performance. This finding has
 implications for optimizing data collection and processing in HAR, enhancing its
 efficiency and practical applicability.
 
-![HAR](media/general_gestures.png)
-*Figure 1: An overview of various gestures recognizable from [??] dataset.*
+![HAR](media/general_gestures.png)  
+*Figure 1: An overview of various gestures recognizable from Widar[8] dataset.*
 
 The initial project proposal provided some background research which explained
 that [1] suggests CSI sampling rate should be chosen as 800Hz for HAR as
@@ -92,21 +92,15 @@ practicality and accessibility of this approach, making it a valuable option for
 activity recognition applications.
 
 ![Priv](media/privacy_centric.png)
-*Figure ?: On the top: a traditional vision-based tracking system. On the bottom: WiFi based HAR system.*
+*Figure 2: On the top: a traditional vision-based tracking system. On the bottom is a WiFi based HAR system.*
 
 Channel State Information (CSI) stands as a superior alternative to Received
 Signal Strength (RSS) for Human Activity Recognition (HAR) due to its capacity
 to provide a more nuanced and comprehensive depiction of the WiFi environment.
 Unlike RSS, which merely averages signal strength across the entire bandwidth,
-CSI, obtained through tools like Intel NIC or Atheros CSI, encapsulates the
-amplitude and phase of each channel. This yields a richer dataset for HAR,
-essentially creating a detailed "WiFi Image" that captures the intricacies of
-signal propagation. While RSS is limited by its oversimplified representation,
-CSI, by measuring the Channel Impulse Response (CIR) in the frequency domain,
-accounts for factors such as amplitude, phase, time delay, and multipath
-components. This shift toward CSI as the preferred metric reflects its ability
-to offer a more detailed and accurate insight into the WiFi landscape, enhancing
-the efficacy of HAR applications in diverse and challenging environments.
+CSI encapsulates the amplitude and phase of each channel. This yields a richer
+dataset for HAR, essentially creating a detailed "WiFi Image" that captures the
+intricacies of signal propagation. 
 
 ### Feature Extraction
 Feature extraction is a process in which relevant information or features are
