@@ -36,8 +36,6 @@ dataset has ample room to reduce sampling rate without sacrificing accuracy.
 
 ## 1. Introduction
 
-This section should cover the following items:
-
 <!-- - Motivation & Objective: What are you trying to do and why? (plain English without jargon)
 - State of the Art & Its Limitations: How is it done today, and what are the limits of current practice?
 - Novelty & Rationale: What is new in your approach and why do you think it will be successful?
@@ -198,13 +196,13 @@ Lastly, we make use of the following models:
 - CNN – Used in SignFi
 
 ### Summary of Datasets
-|    Datasets    |                             Activities                              |               Environment               |                  Number of subjects/samples                  |   BW   |
-| :------------: | :-----------------------------------------------------------------: | :-------------------------------------: | :----------------------------------------------------------: | :----: |
-|   NTU-Fi-HAR   | 6: running, walking, falling, boxing, circling arms, cleaning floor |                   Lab                   |              20 people, each activity 20 times               | 40 MHz |
-| NTU-Fi-HumanID |                          15 people’s gait                           |             Lab, 3 scenario             |                          15 people                           | 40 MHz |
-|     UT-HAR     |          6: lie down, fall, walk, run, sit down, stand up           |                 Office                  | 6 people, 20 trials per activity Data collected continuously | 20 MHz |
-|     Widar      |         22: Push, Pull,Sweep,Clap,Slide, 18 types of Draws          | 3 environments: classroom, hall, office |                        16 volunteers                         | 20 MHz |
-|     SignFi     |                         276 signed gestures                         |                Lab, home                |                           5 people                           | 20 MHz |
+|    Datasets    |                             Activities                              |               Environment               |                  Number of subjects/samples                  |   BW   | Time of Each Activity |
+| :------------: | :-----------------------------------------------------------------: | :-------------------------------------: | :----------------------------------------------------------: | :----: | :-------------------: |
+|   NTU-Fi-HAR   | 6: running, walking, falling, boxing, circling arms, cleaning floor |                   Lab                   |              20 people, each activity 20 times               | 40 MHz |          5s           |
+| NTU-Fi-HumanID |                          15 people’s gait                           |             Lab, 3 scenario             |                          15 people                           | 40 MHz |          5s           |
+|     UT-HAR     |          6: lie down, fall, walk, run, sit down, stand up           |                 Office                  | 6 people, 20 trials per activity Data collected continuously | 20 MHz |          20s          |
+|     Widar      |         22: Push, Pull,Sweep,Clap,Slide, 18 types of Draws          | 3 environments: classroom, hall, office |                        16 volunteers                         | 20 MHz |    Not Available    |
+|     SignFi     |                         276 signed gestures                         |                Lab, home                |                           5 people                           | 20 MHz  |         2.5s         |
 
 ### Code
 Once the datasets are downloaded, we forked the SenseFi repository and made
