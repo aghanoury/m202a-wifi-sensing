@@ -72,6 +72,18 @@ rate. While the literature explores the use of various models, it fails to
 showcase concrete data on exploring various choices for sampling rate.
 Therefore, this work aims to explore both of those dimensions.
 
+The novelty of our project is that, there is not one specific sampling rate that is claimed to be the best. Each research group uses what they consider the best in their case. This results in not having a standardized set to which new researchers can reference that would save them time and effort at the beginning of their research.
+
+Our metrics of success are the following: 
+
+The first thing we want to show is what happens to the model if we were to change the sampling rate. 
+    What happens to the accuracy? 
+    Does it depend on the model used? 
+    Does it depend on the dataset? 
+            
+We want to be able to categorize these details because many papers use different sampling rates to essentially do the same thing, identification over WiFi.
+
+
 ## 2. Background and Related Work
 
 
@@ -292,6 +304,14 @@ First, it would be interesting to explore downsampling the raw data. This projec
 
 Second, the subcarrier selection should be explored further; it seemed to be headed to some interesting results. Third, explore various models and architectures.
 Foruth, explore using multi-modal HAR like combining multiple data sets/sensors. Lastly, exploring which activities require CSI amplitude for proper classification vs which require amplitude and phase. This should be explored only if the correlation that we noticed is confirmed.
+
+Lastly, we did face some challenges throughout the project. 
+
+1) Both of us had lack of experience with different models of machine learning so we had to understand those better. 
+2) Comparing multiple datasets in this context is a challenge due to the sheer number of variables and overall differences between the compositions of the data and the activities they’re measuring.
+3) Finding computational resources took some initial time. We ran into memory issues because others were also using it to train their own models for other tasks.
+4) Understanding the various ways datasets were normalized.
+
 
 We would like to thank Professor Mani Srivastava and Gaofeng Dong for their support and guidance throughout this project.
 
