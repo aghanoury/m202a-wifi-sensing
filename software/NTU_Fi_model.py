@@ -10,7 +10,7 @@ class NTU_Fi_MLP(nn.Module):
     def __init__(self, num_classes):
         super(NTU_Fi_MLP,self).__init__()
         self.fc = nn.Sequential(
-            nn.Linear(3*114*1000,1024), #edit third digit to match dataset.py matrix
+            nn.Linear(3*114*500,1024), #edit third digit to match dataset.py matrix
             nn.ReLU(),
             nn.Linear(1024,128),
             nn.ReLU(),
@@ -188,7 +188,7 @@ class NTU_Fi_RNN(nn.Module):
         self.rnn = nn.RNN(342,64,num_layers=1)
         self.fc = nn.Linear(64,num_classes)
     def forward(self,x):
-        x = x.view(-1,342,500)
+        x = x.view(-1,342,500) #edit third digit to match dataset matrix
         x = x.permute(2,0,1)
         _, ht = self.rnn(x)
         outputs = self.fc(ht[-1])
@@ -201,7 +201,7 @@ class NTU_Fi_GRU(nn.Module):
         self.gru = nn.GRU(342,64,num_layers=1)
         self.fc = nn.Linear(64,num_classes)
     def forward(self,x):
-        x = x.view(-1,342,500)
+        x = x.view(-1,342,500)#edit third digit to match dataset matrix
         x = x.permute(2,0,1)
         _, ht = self.gru(x)
         outputs = self.fc(ht[-1])
@@ -214,7 +214,7 @@ class NTU_Fi_LSTM(nn.Module):
         self.lstm = nn.LSTM(342,64,num_layers=1)
         self.fc = nn.Linear(64,num_classes)
     def forward(self,x):
-        x = x.view(-1,342,500)
+        x = x.view(-1,342,500)#edit third digit to match dataset matrix
         x = x.permute(2,0,1)
         _, (ht,ct) = self.lstm(x)
         outputs = self.fc(ht[-1])
@@ -254,16 +254,16 @@ class NTU_Fi_CNN_GRU(nn.Module):
     def forward(self,x):
         batch_size = len(x)
         # batch x 3 x 114 x 500
-        x = x.view(batch_size,3*114,500)
+        x = x.view(batch_size,3*114,500) #edit third digit to match dataset matrix
         x = x.permute(0,2,1)
         # batch x 500 x 342
-        x = x.reshape(batch_size*500,1, 3*114)
+        x = x.reshape(batch_size*500,1, 3*114) #edit first digit to match dataset matrix
         # (batch x 500) x 1 x 342
         x = self.encoder(x)
         # (batch x 500) x 32 x 8
         x = x.permute(0,2,1)
         x = self.mean(x)
-        x = x.reshape(batch_size, 500, 8)
+        x = x.reshape(batch_size, 500, 8) #edit second digit to match dataset matrix
         # batch x 500 x 8
         x = x.permute(1,0,2)
         # 500 x batch x 8
