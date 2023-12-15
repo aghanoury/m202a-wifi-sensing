@@ -16,7 +16,7 @@ function [net_info, perf] = signfi_cnn_example(csi,label)
     
     % csi_ang = get_signfi_phase(csi);
     csi_tensor = [csi_abs,csi_ang];
-    csi_tensor=downsample(csi_tensor,1);
+    csi_tensor=downsample(csi_tensor,1); %edit second value to downsample
     word = categorical(label);
     t0 = toc; % pre-processing time
     %pyrunfile("csi_phase_offset.py");
