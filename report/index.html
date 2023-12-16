@@ -1,0 +1,1166 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../proposal/">
+      
+      
+        <link rel="next" href="../media/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+    
+    
+      
+        <title>Report - WiFi Sensing</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#table-of-contents" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="WiFi Sensing" class="md-header__button md-logo" aria-label="WiFi Sensing" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            WiFi Sensing
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Report
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/aghanoury/m202a-wifi-sensing/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    M202a WiFi Sensing
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="WiFi Sensing" class="md-nav__button md-logo" aria-label="WiFi Sensing" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    WiFi Sensing
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/aghanoury/m202a-wifi-sensing/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    M202a WiFi Sensing
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proposal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Proposal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Report
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Report
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-background-and-related-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Background and Related Work
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Background and Related Work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#channel-state-information-csi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Channel State Information (CSI)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Extraction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature Extraction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stft" class="md-nav__link">
+    <span class="md-ellipsis">
+      STFT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      BVP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#general-feature-extractions" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Feature Extractions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deep-learning-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deep Learning Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motivation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-technical-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Technical Approach
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Technical Approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of Datasets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-evaluation-and-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Evaluation and Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Evaluation and Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confusion-matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Confusion Matrices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Confusion Matrices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ut-har" class="md-nav__link">
+    <span class="md-ellipsis">
+      UT-HAR
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ntu-fi-har" class="md-nav__link">
+    <span class="md-ellipsis">
+      NTU-Fi-HAR
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ntu-fi-humanid" class="md-nav__link">
+    <span class="md-ellipsis">
+      NTU-Fi-HumanID
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-discussion-and-conclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Discussion and Conclusions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Media
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Media
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../media/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Report</h1>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#1-introduction">1. Introduction</a></li>
+<li><a href="#2-background-and-related-work">2. Background and Related Work</a></li>
+<li><a href="#3-technical-approach">3. Technical Approach</a></li>
+<li><a href="#4-evaluation-and-results">4. Evaluation and Results</a></li>
+<li><a href="#5-discussion-and-conclusions">5. Discussion and Conclusions</a></li>
+<li><a href="#6-references">6. References</a></li>
+</ul>
+<h2 id="abstract">Abstract</h2>
+<p>Recent studies have developed different sensing applications like human activity
+recognition (HAR) using WiFi channel state information (CSI) information.
+However, they usually use high and different sampling rates of CSI, which is
+impractical and will hurt the communication performance. Besides, different
+sensing tasks or applications may require different minimum/best sampling rates
+due to different movement speeds and highest frequency of the activities. E.g,
+<a href="#6-references">[1]</a> suggests CSI sampling rate should be chosen as 800Hz for
+HAR, while <a href="#6-references">[2]</a> uses 500Hz and <a href="#6-references">[3]</a> uses 30Hz;
+<a href="#6-references">[4]</a> chooses 100Hz for indoor crowd counting;
+<a href="#6-references">[5]</a> exploits 200Hz for sign language recognition; etc.
+Therefore, it’s interesting to explore different applications’ dependence on
+sampling rates. In this study, we perform a comprehensive analysis of these
+datasets, changing sampling rate and observing the impact on the accuracy of the
+model. Our results find that each dataset has ample room to reduce sampling rate
+without sacrificing accuracy.</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<!-- - Motivation & Objective: What are you trying to do and why? (plain English without jargon)
+- State of the Art & Its Limitations: How is it done today, and what are the limits of current practice?
+- Novelty & Rationale: What is new in your approach and why do you think it will be successful?
+- Potential Impact: If the project is successful, what difference will it make, both technically and broadly?
+- Challenges: What are the challenges and risks?
+- Requirements for Success: What skills and resources are necessary to perform the project?
+- Metrics of Success: What are metrics by which you would check for success? -->
+
+<p>Human Activity Recognition (HAR) is the process of identifying and interpreting
+the actions and activities performed by humans through the analysis of data
+collected from various sensors. This includes vision-based methods, Inertial
+Measurement Units (IMU), microphones, and the focus of this work, Radio
+Frequency (RF) sensors. In particular, WiFi-based HAR leverages native Multiple
+Input Multiple Output (MIMO) Channel State Information (CSI) to detect changes
+in WiFi signal strength. The goal of this research is to concentrate on
+WiFi-based methods using pre-existing datasets. The primary contribution of this
+work lies in the discovery that each dataset examined provides significant room
+for sample reduction without compromising performance. This finding has
+implications for optimizing data collection and processing in HAR, enhancing its
+efficiency and practical applicability.</p>
+<p><img alt="HAR" src="../media/general_gestures.png" /><br />
+<em>Figure 1: An overview of various gestures recognizable from Widar <a href="#6-references">[8]</a> dataset.</em></p>
+<p>The initial project proposal provided some background research which explained
+that <a href="#6-references">[1]</a> suggests CSI sampling rate should be chosen as 800Hz
+for HAR as "typical human movement speed corresponds to CSI components of
+300Hz", while <a href="#6-references">[2]</a> uses 500Hz and <a href="#6-references">[3]</a> uses
+30Hz; <a href="#6-references">[4]</a> chooses 100Hz for indoor crowd counting;
+<a href="#6-references">[5]</a> exploits 200Hz for sign language recognition; etc.</p>
+<p>Each one of these works makes different claims and assumptions about the rate of
+human activity movement which necessitates their use of a particular sampling
+rate. While the literature explores the use of various models, it fails to
+showcase concrete data on exploring various choices for sampling rate.
+Therefore, this work aims to explore both of those dimensions.</p>
+<p>The novelty of our project is that, there is not one specific sampling rate that is claimed to be the best. Each research group uses what they consider the best in their case. This results in not having a standardized set to which new researchers can reference that would save them time and effort at the beginning of their research.</p>
+<p>Our metrics of success are the following: </p>
+<ol>
+<li>The first thing we want to show is what happens to the model if we were to change the sampling rate. </li>
+<li>What happens to the accuracy? </li>
+<li>Does it depend on the model used?</li>
+<li>Does it depend on the dataset? </li>
+</ol>
+<p>We want to be able to categorize these details because many papers use different sampling rates to essentially do the same thing, identification over WiFi.</p>
+<h2 id="2-background-and-related-work">2. Background and Related Work</h2>
+<h3 id="channel-state-information-csi">Channel State Information (CSI)</h3>
+<p>The choice of WiFi-based Human Activity Recognition (HAR) is motivated by
+distinct advantages over traditional camera-based systems. Camera systems, while
+accurate and deterministic, pose limitations due to their requirement for direct
+line-of-sight (LOS), raising privacy concerns and potential intentional evasion.
+In contrast, WiFi, being ubiquitous in indoor settings, offers a compelling
+alternative for HAR. WiFi-based HAR operates passively, mitigating privacy
+concerns associated with cameras and eliminating the need for a direct line of
+sight. This not only addresses privacy issues but also provides a more inclusive
+and less intrusive method for detecting and interpreting human activities in
+indoor environments. 
+<img alt="Priv" src="../media/privacy_centric.png" /><br />
+<em>Figure 2: On the top: a traditional vision-based tracking system. On the bottom is a WiFi based HAR system.</em></p>
+<p>Channel State Information (CSI) is highly preferred over something more general
+like Received Signal Strength (RSS) for Human Activity Recognition (HAR) due to
+its capacity to provide a more nuanced and comprehensive depiction of the WiFi
+environment.  Unlike RSS, which merely averages signal strength across the
+entire bandwidth, CSI encapsulates the amplitude and phase of each channel. This
+yields a richer dataset for HAR, essentially creating a detailed "WiFi Image"
+that captures the intricacies of signal propagation. </p>
+<h3 id="feature-extraction">Feature Extraction</h3>
+<p>Feature extraction is a process in which relevant information or features are
+selected or extracted from raw data to reduce its dimensionality or to transform
+it into a more suitable format for analysis. It's important because it reduces
+the dimensionality of data, allowing machine learning algorithms to focus on the
+most relevant information and improving computational efficiency.  By capturing
+essential patterns or characteristics, it enhances the performance of models in
+various domains, such as image recognition, natural language processing, and
+signal processing.</p>
+<h4 id="stft">STFT</h4>
+<p>In the context of WiFi-based HAR, directly feeding CSI data into a model proves
+impractical; thus feature extraction is paramount. To this end,  various
+approaches are employed to enhance the interpretability of the data. One common
+method, and that which is employed in the UT-HAR dataset <a href="#6-references">[7]</a>,
+involves the application of Short-time Fourier transforms (STFT).  This
+technique proves useful in finding the distinct phases of movements embedded
+within the CSI data. </p>
+<p><img alt="STFT" src="../media/stft_example.png" />
+<em>Figure 2: Another signal</em></p>
+<h4 id="bvp">BVP</h4>
+<p>The Widar <a href="#6-references">[3]</a> dataset utilizes the Body-coordinate velocity
+profile (BVP) as a key component in its analysis. The data processing pipeline
+involves two major stages following the acquisition of Channel State Information
+(CSI): first, converting CSI to BVP, and then extracting relevant features from
+the BVP. The subsequent work involves classifying activities based on this
+Body-coordinate velocity profile.</p>
+<p><img alt="BVP" src="../media/bvp_pipeline.png" />
+<em>Figure 3: BVP pipeline from <a href="#6-references">[3]</a></em></p>
+<h4 id="general-feature-extractions">General Feature Extractions</h4>
+<p>EfficientFi <a href="#6-references">[2]</a>, authored by the creators of SenseFi and NTU
+datasets, employs a pipeline involving feature extraction directly from raw CSI
+data. They utilize a quantization method to compress the feature map by mapping
+measured feature vectors to the nearest vector in a CSI codebook. Classification
+is performed solely on the extracted features, and a decoder network is employed
+to store CSI data on the server itself.</p>
+<p><img alt="NTU" src="../media/NTU_feature_extraction.png" />
+<em>Figure 4: architecture of NTU-Fi <a href="#6-references">[6]</a></em></p>
+<h3 id="deep-learning-models">Deep Learning Models</h3>
+<p><strong>MLP</strong> (Multi-Layer Perceptron): Simple and robust architecture, but slow
+*convergence and significant computational costs are drawbacks.</p>
+<p><strong>CNN</strong> (Convolutional Neural Network): Excels in capturing spatial and temporal
+<em>features, but may have a limited receptive field due to kernel size and
+</em>traditionally stacks all feature maps equally.</p>
+<p><strong>RNN</strong> (Recurrent Neural Network): Effective for handling time sequence data
+<em>like video and Channel State Information (CSI), capable of memorizing
+</em>arbitrary-length sequences. However, faces challenges in capturing long-term
+<em>dependencies and suffers from the vanishing gradient problem during
+</em>backpropagation.</p>
+<p><strong>LSTM</strong> (Long Short-Term Memory): Addresses the vanishing gradient problem in
+<em>traditional RNNs, allowing better handling of long-term dependencies. However,
+</em>it introduces increased complexity compared to standard RNNs.</p>
+<h3 id="motivation">Motivation</h3>
+<p>The motivation of previous works in this domain involved modifying the Channel State Information (CSI) at the edge, followed by post-processing, potentially including denoising, and feature extraction using methods like Short-Time Fourier Transform (STFT) and Velocity Profile. The feature data is then offloaded to servers for machine learning classification. The primary goal of <em>this work</em> is to analyze the impact of sampling rate on classification performance, with the potential benefit of minimizing traffic between the edge and the cloud.</p>
+<p><img alt="motivation" src="../media/motivation.png" />
+<em>Figure 5: General WiFi HAR processing architecture with emphasis where our work explores</em></p>
+<h2 id="3-technical-approach">3. Technical Approach</h2>
+<p>In this work, we make use of several datasets as follows:</p>
+<ol>
+<li><strong>UT-HAR <a href="#6-references">[7]</a>:</strong> Includes measurements of 7 different activities.</li>
+<li><strong>NTU-FI <a href="#6-references">[6]</a>:</strong> A Human Activity Recognition (HAR) dataset featuring 6 different activities.</li>
+<li><strong>HumanID:</strong> A dataset focused on the gait of 15 individuals.</li>
+<li><strong>Widar <a href="#6-references">[3]</a>:</strong> Comprises a dataset with records of 22 different activities.</li>
+<li><strong>SignFi <a href="#6-references">[5]</a>:</strong> Involves a dataset with 256 different signed symbols.</li>
+</ol>
+<p>Furthermore, we build upon the framework from SenseFi <a href="#6-references">[6]</a>, which uses Python,
+Pytorch, and some other works <a href="#6-references">[5]</a> which use Matlab. </p>
+<p>Lastly, we make use of the following models:
+- Multi-layer Perceptron (MLP)
+- Recurrent Neural Network (RNN)
+- Gated Recurrent Unit (GRU)
+- Gated Recurrent Unit + Convolutional Neural Network (GRU+CNN)
+- LeNet (Special Type of CNN) <a href="#6-references">[6]</a>
+- CNN – Used in SignFi</p>
+<h3 id="summary-of-datasets">Summary of Datasets</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Datasets</th>
+<th style="text-align: center;">Activities</th>
+<th style="text-align: center;">Environment</th>
+<th style="text-align: center;">Number of subjects/samples</th>
+<th style="text-align: center;">BW</th>
+<th style="text-align: center;">Time of Each Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">NTU-Fi-HAR</td>
+<td style="text-align: center;">6: running, walking, falling, boxing, circling arms, cleaning floor</td>
+<td style="text-align: center;">Lab</td>
+<td style="text-align: center;">20 people, each activity 20 times</td>
+<td style="text-align: center;">40 MHz</td>
+<td style="text-align: center;">5s</td>
+</tr>
+<tr>
+<td style="text-align: center;">NTU-Fi-HumanID</td>
+<td style="text-align: center;">15 people’s gait</td>
+<td style="text-align: center;">Lab, 3 scenario</td>
+<td style="text-align: center;">15 people</td>
+<td style="text-align: center;">40 MHz</td>
+<td style="text-align: center;">5s</td>
+</tr>
+<tr>
+<td style="text-align: center;">UT-HAR</td>
+<td style="text-align: center;">6: lie down, fall, walk, run, sit down, stand up</td>
+<td style="text-align: center;">Office</td>
+<td style="text-align: center;">6 people, 20 trials per activity Data collected continuously</td>
+<td style="text-align: center;">20 MHz</td>
+<td style="text-align: center;">20s</td>
+</tr>
+<tr>
+<td style="text-align: center;">Widar</td>
+<td style="text-align: center;">22: Push, Pull,Sweep,Clap,Slide, 18 types of Draws</td>
+<td style="text-align: center;">3 environments: classroom, hall, office</td>
+<td style="text-align: center;">16 volunteers</td>
+<td style="text-align: center;">20 MHz</td>
+<td style="text-align: center;">Not Available</td>
+</tr>
+<tr>
+<td style="text-align: center;">SignFi</td>
+<td style="text-align: center;">276 signed gestures</td>
+<td style="text-align: center;">Lab, home</td>
+<td style="text-align: center;">5 people</td>
+<td style="text-align: center;">20 MHz</td>
+<td style="text-align: center;">2.5s</td>
+</tr>
+</tbody>
+</table>
+<h3 id="code">Code</h3>
+<p>Once the datasets are downloaded, we forked the SenseFi repository and made
+signifcant modifications to their framework to help address our research
+questions. Specifically, our code includes approaches to
+downsampling, matrix reduction, and modifications to alter the number of
+subcarriers, thus effectively influencing the bandwidth of the data. We explore
+different downsampling methods, ranging from straightforward matrix reduction
+techniques—such as selecting every nth column—to utilizing Python's decimate
+function and implementing custom downsampling functions. Furthermore, our code
+incorporates considerations for downsampling at different stages of data
+processing, be it before or after converting the data into tensor format. To
+enhance our data analysis capabilities, we have also integrated functionality to
+generate a confusion matrix. Overall, these code implementations contribute to a
+comprehensive and flexible framework for processing and understanding the
+intricacies of the datasets in our project.</p>
+<p>Below is a summary of our methods:</p>
+<ul>
+<li>
+<p>Matrix Reduction:</p>
+<ul>
+<li>Taking every second column for half the sampling frequency, every 4th for ¼ the sampling, etc.</li>
+<li>Example: x = x[:,::2];</li>
+</ul>
+</li>
+<li>
+<p>Decimate Function:</p>
+<ul>
+<li>Using the decimate function in Python with a specified decimation factor (q=8, zero_phase=True).</li>
+<li>Example: x = decimate(x, q=8, zero_phase=True)</li>
+<li>To use this method, we had to include additional code: x=x.copy()</li>
+<li>This was neccesary because when we used the decimate function, negative strides occur and as of the time of writing this report, PyTorch is not comptabile         with negative strides.</li>
+<li>Strides are used to access the elements in the tensor.</li>
+</ul>
+</li>
+<li>
+<p>Custom Downsampling Functions:</p>
+<ul>
+<li>Implementing custom downsampling functions.</li>
+</ul>
+</li>
+<li>
+<p>Different Areas for Downsampling:</p>
+<ul>
+<li>Considering downsampling at various stages, such as pre or post converting the data to tensor format.</li>
+</ul>
+</li>
+<li>
+<p>Confusion Matrix Development:</p>
+<ul>
+<li>Adding code to generate a confusion matrix for further data analysis.</li>
+</ul>
+</li>
+<li>
+<p>Changing the Number of Subcarriers:</p>
+<ul>
+<li>Modifying the number of subcarriers, effectively altering the bandwidth.</li>
+</ul>
+</li>
+</ul>
+<p>These methods collectively address downsampling, matrix reduction, and
+additional modifications to analyze and manipulate the data effectively in the
+context of signal processing and machine learning.</p>
+<h2 id="4-evaluation-and-results">4. Evaluation and Results</h2>
+<p>In this section, we will be discussing the results. We saw no difference with how we implemented the downsampling in the final accuracy. However, we did notice that the time to complete training would be servely delayed if we used the decimate function. This is because of the additional line of code needed to correct the negative strides would force the matrix to be reconstructed every single time. So, we used the matrix reduction method to generate results fastest. Additionally, the area of downsampling did not change the end results. So, we could downsample before or after converting the data to tensor format and saw no change in accuracy or runtime. </p>
+<p><img alt="NTUresults" src="/media/NTU-Fi-HAR_results.png" />
+<em>Figure 6: Accuracy vs Frequency plot for NTU-Fi-HAR dataset with various models</em></p>
+<p>As can be seen from Figure 6, very little change in accuracy when downsampling; the largest delta being ~5%. The best performing and most robust model was GRU in our experiments.</p>
+<p><img alt="NTUHIresults" src="/media/NTU-Fi-HumanID_results.png" />
+<em>Figure 7: Accuracy vs Frequency plot for NTU-Fi-HumanID dataset with various models</em></p>
+<p>As can be seen from Figure 7, there was very little change in accuracy as well when downsampling; the largest delta being ~4%. The best performing and most robust model was again GRU.</p>
+<p><img alt="UTHAR Results" src="/media/UT-HAR-Results.png" />
+<em>Figure 8: Accuracy vs Frequency plot for UT-HAR dataset with various models</em></p>
+<p>As can be seen from Figure 8, there was more of a change in accuracy when downsampling compared to NTU-Fi-HAR and HumanID datasets; the largest delta being ~10%. However, it was still not a significant decrease. The best performing model here was LeNet, but the most robust was MLP.</p>
+<p><img alt="Signfi Results" src="/media/Widar-Results.png" />
+<em>Figure 9: Accuracy vs Frequency plot for Widar dataset with various models</em></p>
+<p>As can be seen from Figure 9, there was a significant decrease in accuracy when downsampling occurred; the largest delta being ~50%. The best performing model here was MLP, but we did not have a robust model since all that were tested experienced similar results.</p>
+<p><img alt="Signfi Results" src="/media/Signfi-Results.png" />
+<em>Figure 10: Accuracy vs Frequency plot for SignFi dataset with a CNN model</em></p>
+<p>As can be seen from Figure 10, there was also a decrease in accuracy when downsampling. The accuracy would decrease ~10% each time the frequency was downsampled by half. </p>
+<h3 id="confusion-matrices">Confusion Matrices</h3>
+<p>The results above describe the overall accuracy of each dataset and model combination as a function of sampling rate. 
+However, to gain a more detailed understanding of the tracking of each activity, we also generated confusion matrices for each dataset and model combination.</p>
+<p>Interestingly, we observe accross the board that the accuracy per task is relatively consistent accross the sampling rates explored in this work. This is likely due to the fact that the activities are relatively distinct from one another, and thus the model is able to distinguish between them even with reduced sampling rates. </p>
+<p>For example, in UT-HAR we see that the model is able to distinguish between the "Lie Down" and "Fall" activities with high accuracy, even at the lowest sampling rate of 50 Hz. This is likely due to the fact that the "Lie Down" activity is a relatively static activity, while the "Fall" activity is a dynamic activity. Thus, the model is able to distinguish between the two activities even with reduced sampling rates.</p>
+<p>Furthermore, in NTU-Fi-HAR we see that the model is able to distinguish between the "Run" and "Walk" activities with high accuracy. This is likely due to the fact that the "Run" activity is much faster periodically relative to a  "Walk" activity.</p>
+<p>And lastly, in NTU-Fi-HumanID we see that the model is able to distinguish between the specific individuals with high accuracy. This is likely due to the fact that the gait of each individual is unique enough to provide proper classification. </p>
+<p>The resulting confusion matrices are shown below.</p>
+<h4 id="ut-har">UT-HAR</h4>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Lie down</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Fall</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Walk</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Pick up</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Run</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Sit down</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Stand up</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="UT-HAR Confusion Matrix" src="../media/UT_HAR_GRU_250_1.png" /><br />
+<em>Figure 11: Confusion Matrix for UT-HAR dataset with GRU model and 250 Hz sampling rate</em></p>
+<p><img alt="UT-HAR Confusion Matrix" src="../media/UT_HAR_GRU_125_2.png" /><br />
+<em>Figure 12: Confusion Matrix for UT-HAR dataset with GRU model and 125 Hz sampling rate</em></p>
+<p><img alt="UT-HAR Confusion Matrix" src="../media/UT_HAR_GRU_50_3.png" /> <br />
+<em>Figure 13: Confusion Matrix for UT-HAR dataset with GRU model and 50 Hz sampling rate</em></p>
+<h4 id="ntu-fi-har">NTU-Fi-HAR</h4>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Box</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Circle</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Clean</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Fall</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Walk</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Run</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="NTU-Fi-HAR Confusion Matrix" src="../media/NTU_Fi_GRU_500.png" /><br />
+<em>Figure 14: Confusion Matrix for NTU-Fi-HAR dataset with GRU model and 500 Hz sampling rate</em></p>
+<p><img alt="NTU-Fi-HAR Confusion Matrix" src="../media/NTU_Fi_GRU_250.png" /><br />
+<em>Figure 15: Confusion Matrix for NTU-Fi-HAR dataset with GRU model and 250 Hz sampling rate</em></p>
+<p><img alt="NTU-Fi-HAR Confusion Matrix" src="../media/NTU_Fi_GRU_125_1.png" /><br />
+<em>Figure 16: Confusion Matrix for NTU-Fi-HAR dataset with GRU model and 125 Hz sampling rate</em></p>
+<h4 id="ntu-fi-humanid">NTU-Fi-HumanID</h4>
+<p><img alt="NTU-Fi-HumanID Confusion Matrix" src="../media/NTU_Fi_HumanID_GRU_500_2.png" /><br />
+<em>Figure 17: Confusion Matrix for NTU-Fi-HumanID dataset with GRU model and 500 Hz sampling rate</em></p>
+<p><img alt="NTU-Fi-HumanID Confusion Matrix" src="../media/NTU_Fi_HumanID_GRU_250_1.png" /><br />
+<em>Figure 18: Confusion Matrix for NTU-Fi-HumanID dataset with GRU model and 250 Hz sampling rate</em></p>
+<p><img alt="NTU-Fi-HumanID Confusion Matrix" src="../media/NTU_Fi_HumanID_GRU_125_2.png" /><br />
+<em>Figure 19: Confusion Matrix for NTU-Fi-HumanID dataset with GRU model and 125 Hz sampling rate</em></p>
+<h2 id="5-discussion-and-conclusions">5. Discussion and Conclusions</h2>
+<p>From our results, we can see that datasets that had less activities would be
+less affected by downsampling. NTU-Fi-HAR had 6 activities but only two of them
+were similar. This explains why the accuracy did drop slightly with downsampling
+but not much overall. NTU-Fi-HumanID had 15 "activites" each representing the
+gait of distinct individuals. The accuracy changed very little as well because
+the gait of an individual can be unique enough to provide proper classification.
+UT-HAR had 7 activities and did see more of a decrease in accuracy when compared
+to NTU-Fi datasets. This is because UT-HAR had 2 pairs of activites that were
+similar that when downsampling could be potentially misclassified resulting in
+the decrease in accuracy we saw. Widar and SignFi had the largest decrease in
+accuracy because those two had more similar activites. Widar dataset is composed
+of 22 activites, 18 of which draws using hands, and SignFi dataset has 276
+signed gestures. When downsampling, the information to properly classify the
+hand gestures or draws could have been lost or not enough information was
+present to properly classify the signs. </p>
+<p>Additionally, we saw some interesting results that should be explored further.
+When comparing the datasets and how they were structured, we noticed that the
+ones that were composed of only the amplitude component of the CSI data
+performed better. This included NTU-Fi datasets and the UT-HAR dataset. In
+contrast, the datasets composed of both the amplitude and phase component
+performed worse. SignFi directly used the amplitude and phase components in it's
+code and Widar dataset was composed of BVP which are derived from the amplitude
+and phase. This should be explored further to rule out as a contributing factor.</p>
+<p>Also, changing the subcarriers used did affect the accuracy. We conducted an
+experiment where we divided the subcarriers into even groups of 3. When the
+second and thrid group were used, the accuracy would be around the same as if we
+used the entire set of subcarriers. However, when we used the first group, the
+accuracy decreased about 20-30%. Due to time constraint and this being out of
+scope of the project, we could not dive more into this but it should also be
+explored further. The accuracy did not change if we kept the same subcarrier
+group constant but downsampled. </p>
+<p>Overall, we succeeded in identifying the effect of downsampling on the accuracy
+of WiFi sensing for various models and datasets that contained many different
+activites. We also indentified potential areas for future work.</p>
+<p>First, it would be interesting to explore downsampling the raw data. This
+project focused on the downsampling pre-processed data. But what would happen if
+the downsampling occured on the raw data? Would the results be any different?
+Also, if you processed the downsampled raw data would it match the downsampled
+pre-processed data from this experiment?</p>
+<p>Second, the subcarrier selection should be explored further; it seemed to be
+headed to some interesting results. Third, explore various models and
+architectures. Fourth, explore using multi-modal HAR like combining multiple
+data sets/sensors. Lastly, exploring which activities require CSI amplitude for
+proper classification vs which require amplitude and phase. This should be
+explored only if the correlation that we noticed is confirmed.</p>
+<p>Lastly, we did face some challenges throughout the project. </p>
+<p>1) Both of us had lack of experience with different models of machine learning so we had to understand those better. 
+2) Comparing multiple datasets in this context is a challenge due to the sheer number of variables and overall differences between the compositions of the data and the activities they’re measuring.
+3) Finding computational resources took some initial time. We ran into memory issues because others were also using it to train their own models for other tasks.
+4) Understanding the various ways datasets were normalized.</p>
+<p>We would like to thank Professor Mani Srivastava and Gaofeng Dong for their support and guidance throughout this project.</p>
+<h2 id="6-references">6. References</h2>
+<p>[1] Wang, Wei, et al. "Understanding and modeling of wifi signal based human activity recognition." MobiCom (2015).</p>
+<p>[2] Yang, Jianfei, et al. "EfficientFi: Toward large-scale lightweight WiFi sensing via CSI compression." IEEE Internet of Things Journal (2022).</p>
+<p>[3] Guo, Linlin, et al. "Wiar: A public dataset for wifi-based activity recognition." IEEE Access (2019).</p>
+<p>[4] Hou, Huawei, et al. "DASECount: Domain-Agnostic Sample-Efficient Wireless Indoor Crowd Counting via Few-Shot Learning." IEEE Internet of Things Journal (2022).</p>
+<p>[5] Ma, Yongsen, et al. "SignFi: Sign language recognition using WiFi." ACM IMWUT (2018).</p>
+<p>[6] Yang, Chen, et al. "SenseFi: A Library and Benchmark on Deep-Learning-Empowered WiFi Human Sensing", Patterns (2023).</p>
+<p>[7] Yousefi, Narui, et al. "A Survey on Behavior Recognition Using WiFi Channel State Information"IEEE Comunication Magazine (2017)</p>
+<p>[8] Zheng Yang, Yi Zhang, Guidong Zhang, Yue Zheng, December 26, 2020, "Widar 3.0: WiFi-based Activity Recognition Dataset", IEEE Dataport, doi: https://dx.doi.org/10.21227/7znf-qp86.</p>
+<p>[9] M. Cominelli, F. Gringoli and F. Restuccia, "Exposing the CSI: A Systematic Investigation of CSI-based Wi-Fi Sensing Capabilities and Limitations," 2023 IEEE International Conference on Pervasive Computing and Communications (PerCom), Atlanta, GA, USA, 2023, pp. 81-90, doi: 10.1109/PERCOM56429.2023.10099368.</p>
+<p>[10] https://wirelesspi.com/advantages-and-disadvantages-of-ofdm-a-summary/</p>
+<p>[11] From Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner, “Gradient-based learning applied to document recognition,”Proceedings of the IEEE, vol.86,no.11,pp.2278–2324,1998.</p>
+<p>[12] Sim JM, Lee Y, Kwon O. Acoustic Sensor Based Recognition of Human Activity in Everyday Life for Smart Home Services. International Journal of Distributed Sensor Networks. 2015;11(9). doi:10.1155/2015/679123</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>
