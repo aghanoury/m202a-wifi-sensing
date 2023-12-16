@@ -39,6 +39,6 @@ rates.
 ## Required Submissions
 
 - [Proposal](proposal.md)
-- [Midterm Checkpoint Presentation Slides](https://docs.google.com/presentation/d/1Htf6vL7fYgZne0Y3WzuVqS-RoeZrsdSdSzBRnUI0TpQ/edit?usp=sharing)
-- [Final Presentation Slides](https://docs.google.com/presentation/d/1vP0aNV5Zgl6X88qpT-Krqv_PRcyjsX0qSn3wZY_cdho/edit?usp=sharing)
+- [Midterm Checkpoint Presentation Slides](media/midterm_slides.pdf)
+- [Final Presentation Slides](media/final_slides.pdf)
 - [Final Report](report.md)
