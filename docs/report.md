@@ -16,6 +16,9 @@
     - [Code](#code)
 - [4. Evaluation and Results](#4-evaluation-and-results)
     - [Confusion Matrices](#confusion-matrices)
+        - [UT-HAR](#ut-har)
+        - [NTU-Fi-HAR](#ntu-fi-har)
+        - [NTU-Fi-HumanID](#ntu-fi-humanid)
 - [5. Discussion and Conclusions](#5-discussion-and-conclusions)
 - [6. References](#6-references)
 
@@ -259,41 +262,31 @@ context of signal processing and machine learning.
 ## 4. Evaluation and Results
 In this section, we will be discussing the results. We saw no difference with how we implemented the downsampling in the final accuracy. However, we did notice that the time to complete training would be servely delayed if we used the decimate function. This is because of the additional line of code needed to correct the negative strides would force the matrix to be reconstructed every single time. So, we used the matrix reduction method to generate results fastest. Additionally, the area of downsampling did not change the end results. So, we could downsample before or after converting the data to tensor format and saw no change in accuracy or runtime. 
 
-<div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="/media/NTU-Fi-HAR_results.png" alt="NTUresults" width="500">
-    <i>Figure 6: Accuracy vs Frequency plot for NTU-Fi-HAR dataset with various models</i>
-</div>
+![NTUresults](/media/NTU-Fi-HAR_results.png)
+*Figure 6: Accuracy vs Frequency plot for NTU-Fi-HAR dataset with various models*
+
 
 As can be seen from Figure 6, very little change in accuracy when downsampling; the largest delta being ~5%. The best performing and most robust model was GRU in our experiments.
 
-<div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="/media/NTU-Fi-HumanID_results.png" alt="NTUHIresults" width="500">
-    <i>Figure 7: Accuracy vs Frequency plot for NTU-Fi-HumanID dataset with various models</i>
-</div>
 
+![NTUHIresults](/media/NTU-Fi-HumanID_results.png)
+*Figure 7: Accuracy vs Frequency plot for NTU-Fi-HumanID dataset with various models*
 
 As can be seen from Figure 7, there was very little change in accuracy as well when downsampling; the largest delta being ~4%. The best performing and most robust model was again GRU.
 
-<div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="/media/UT-HAR-Results.png" alt="UTHAR Results" width="500">
-    <i>Figure 8: Accuracy vs Frequency plot for UT-HAR dataset with various models</i>
-</div>
 
+![UTHAR Results](/media/UT-HAR-Results.png)
+*Figure 8: Accuracy vs Frequency plot for UT-HAR dataset with various models*
 
-As can be seen from Figure 8, there was more of a change in accuracy when downsampling compared to NTU-Fi-HAR and HumanID datasets; the largest delta being ~10%. However, it was still not a significant decrease. The best performing model here was LeNet, but the most robust was MLP. 
+As can be seen from Figure 8, there was more of a change in accuracy when downsampling compared to NTU-Fi-HAR and HumanID datasets; the largest delta being ~10%. However, it was still not a significant decrease. The best performing model here was LeNet, but the most robust was MLP.
 
-<div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="/media/Widar-Results.png" alt="Signfi Results" width="500">
-    <i>Figure 9: Accuracy vs Frequency plot for Widar dataset with a various models</i>
-</div>
+![Signfi Results](/media/Widar-Results.png)
+*Figure 9: Accuracy vs Frequency plot for Widar dataset with various models*
 
-As can be seen from this Figure 9, there was significant decrease in accuracy when downsampling occured; the largest delta being ~50%. The best performing model here was MLP, but we did not have a robust model since all that were tested experienced the similar results. 
+As can be seen from Figure 9, there was a significant decrease in accuracy when downsampling occurred; the largest delta being ~50%. The best performing model here was MLP, but we did not have a robust model since all that were tested experienced similar results.
 
-<div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="/media/Signfi-Results.png" alt="Signfi Results" width="500">
-    <i>Figure 10: Accuracy vs Frequency plot for SignFi dataset with a CNN model</i>
-</div>
-
+![Signfi Results](/media/Signfi-Results.png)
+*Figure 10: Accuracy vs Frequency plot for SignFi dataset with a CNN model*
 
 As can be seen from Figure 10, there was also a decrease in accuracy when downsampling. The accuracy would decrease ~10% each time the frequency was downsampled by half. 
 
@@ -301,9 +294,76 @@ As can be seen from Figure 10, there was also a decrease in accuracy when downsa
 The results above describe the overall accuracy of each dataset and model combination as a function of sampling rate. 
 However, to gain a more detailed understanding of the tracking of each activity, we also generated confusion matrices for each dataset and model combination.
 
-![NTUconfusion](media/NTU_Fi_GRU_125_1.png)
+Interestingly, we observe accross the board that the accuracy per task is relatively consistent accross the sampling rates explored in this work. This is likely due to the fact that the activities are relatively distinct from one another, and thus the model is able to distinguish between them even with reduced sampling rates. 
 
-Add info regarding confusion matrices.
+For example, in UT-HAR we see that the model is able to distinguish between the "Lie Down" and "Fall" activities with high accuracy, even at the lowest sampling rate of 50 Hz. This is likely due to the fact that the "Lie Down" activity is a relatively static activity, while the "Fall" activity is a dynamic activity. Thus, the model is able to distinguish between the two activities even with reduced sampling rates.
+
+Furthermore, in NTU-Fi-HAR we see that the model is able to distinguish between the "Run" and "Walk" activities with high accuracy. This is likely due to the fact that the "Run" activity is much faster periodically relative to a  "Walk" activity.
+
+And lastly, in NTU-Fi-HumanID we see that the model is able to distinguish between the specific individuals with high accuracy. This is likely due to the fact that the gait of each individual is unique enough to provide proper classification. 
+
+The resulting confusion matrices are shown below.
+
+
+#### UT-HAR
+
+| Code | Activity |
+| ---- | -------- |
+| 0    | Lie down |
+| 1    | Fall     |
+| 2    | Walk     |
+| 3    | Pick up  |
+| 4    | Run      |
+| 5    | Sit down |
+| 6    | Stand up |
+
+
+
+![UT-HAR Confusion Matrix](media/UT_HAR_GRU_250_1.png)  
+*Figure 11: Confusion Matrix for UT-HAR dataset with GRU model and 250 Hz sampling rate*
+
+![UT-HAR Confusion Matrix](media/UT_HAR_GRU_125_2.png)  
+*Figure 12: Confusion Matrix for UT-HAR dataset with GRU model and 125 Hz sampling rate*
+
+![UT-HAR Confusion Matrix](media/UT_HAR_GRU_50_3.png)   
+*Figure 13: Confusion Matrix for UT-HAR dataset with GRU model and 50 Hz sampling rate*
+
+
+
+#### NTU-Fi-HAR
+
+| Code | Object |
+| ---- | ------ |
+| 0    | Box    |
+| 1    | Circle |
+| 2    | Clean  |
+| 3    | Fall   |
+| 4    | Walk   |
+| 5    | Run    |
+
+
+![NTU-Fi-HAR Confusion Matrix](media/NTU_Fi_GRU_500.png)  
+*Figure 14: Confusion Matrix for NTU-Fi-HAR dataset with GRU model and 500 Hz sampling rate*
+
+![NTU-Fi-HAR Confusion Matrix](media/NTU_Fi_GRU_250.png)  
+*Figure 15: Confusion Matrix for NTU-Fi-HAR dataset with GRU model and 250 Hz sampling rate*
+
+![NTU-Fi-HAR Confusion Matrix](media/NTU_Fi_GRU_125_1.png)  
+*Figure 16: Confusion Matrix for NTU-Fi-HAR dataset with GRU model and 125 Hz sampling rate*
+
+#### NTU-Fi-HumanID
+![NTU-Fi-HumanID Confusion Matrix](media/NTU_Fi_HumanID_GRU_500_2.png)  
+*Figure 17: Confusion Matrix for NTU-Fi-HumanID dataset with GRU model and 500 Hz sampling rate*
+
+![NTU-Fi-HumanID Confusion Matrix](media/NTU_Fi_HumanID_GRU_250_1.png)  
+*Figure 18: Confusion Matrix for NTU-Fi-HumanID dataset with GRU model and 250 Hz sampling rate*
+
+![NTU-Fi-HumanID Confusion Matrix](media/NTU_Fi_HumanID_GRU_125_2.png)  
+*Figure 19: Confusion Matrix for NTU-Fi-HumanID dataset with GRU model and 125 Hz sampling rate*
+
+
+
+
 
 ## 5. Discussion and Conclusions
 From our results, we can see that datasets that had less activities would be
